@@ -222,7 +222,7 @@
     -->
     
     <!-- ChatKit スクリプト読み込み -->
-    <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
+    <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"></script>
     
     <script>
         // ═════════════════════════════════════════════════════════
@@ -232,10 +232,10 @@
         let chatkitControl = null;
         
         // ChatKitスクリプトが読み込まれるまで待つ
-        window.addEventListener('load', async () => {
-            if (!window.ChatKit) {
-                console.error('❌ ChatKit script not loaded');
-                return;
+        async function initializeChatKit() {
+            // ChatKitが利用可能になるまで待つ
+            while (!window.ChatKit) {
+                await new Promise(resolve => setTimeout(resolve, 100));
             }
             
             try {
@@ -279,7 +279,14 @@
                 console.error('❌ ChatKit initialization failed:', error);
                 alert('チャットの初期化に失敗しました: ' + error.message);
             }
-        });
+        }
+        
+        // ページ読み込み時に初期化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeChatKit);
+        } else {
+            initializeChatKit();
+        }
         
         // チャットを開く関数
         function openChat() {
