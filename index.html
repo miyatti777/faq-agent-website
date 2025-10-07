@@ -226,67 +226,68 @@
     
     <script>
         // ═════════════════════════════════════════════════════════
-        // ⚠️ ここを編集してください
+        // ChatKit統合（サーバーサイド認証方式）
         // ═════════════════════════════════════════════════════════
         
-        const CONFIG = {
-            // 🔴 必須：あなたのWorkflow IDに変更してください
-            workflowId: 'wf_68e4692701c88190b320ee7546ec44d70e84b98b70d37035',
-            
-            // 🔴 必須：本番環境用バージョン（変更しないでOK）
-            version: '1',
-            
-            // 🔴 必須：ドメイン認証用Public Key
-            publicKey: 'domain_pk_68e471f3eb388190bfa366d9ecdd4e710c85ddc9e9d273d6',
-            
-            // ═════════════════════════════════════════════════════
-            // 以下はカスタマイズ可能（変更してもしなくてもOK）
-            // ═════════════════════════════════════════════════════
-            
-            position: 'bottom-right',  // 'bottom-left', 'top-right', 'top-left'
-            theme: 'light',            // 'light', 'dark', 'auto'
-            primaryColor: '#667eea',   // お好みの色に変更可能
-            
-            // メッセージ
-            welcomeMessage: 'こんにちは！何かお困りですか？お気軽にご質問ください。',
-            placeholder: 'ご質問をどうぞ...',
-            
-            // ヘッダー
-            headerTitle: 'AIサポート',
-            headerSubtitle: '24時間対応',
-        };
+        let chatkitControl = null;
         
-        // ═════════════════════════════════════════════════════════
-        // ⚠️ ここから下は変更不要
-        // ═════════════════════════════════════════════════════════
-        
-        // ChatKit初期化
-        try {
-            ChatKit.init(CONFIG);
-            console.log('✅ ChatKit initialized successfully');
-        } catch (error) {
-            console.error('❌ ChatKit initialization failed:', error);
-            alert('チャットの初期化に失敗しました。Workflow IDとドメイン登録を確認してください。');
-        }
+        // ChatKitスクリプトが読み込まれるまで待つ
+        window.addEventListener('load', async () => {
+            if (!window.ChatKit) {
+                console.error('❌ ChatKit script not loaded');
+                return;
+            }
+            
+            try {
+                // ChatKitを初期化（サーバーサイド認証）
+                chatkitControl = await ChatKit.embed({
+                    workflowId: 'wf_68e4692701c88190b320ee7546ec44d70e84b98b70d37035',
+                    api: {
+                        async getClientSecret(existing) {
+                            if (existing) {
+                                console.log('Refreshing existing session...');
+                            }
+                            
+                            // サーバーサイドでclient_secretを取得
+                            const response = await fetch('/api/chatkit/session', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            });
+                            
+                            if (!response.ok) {
+                                throw new Error('Failed to get client secret');
+                            }
+                            
+                            const { client_secret } = await response.json();
+                            return client_secret;
+                        },
+                    },
+                    // カスタマイズオプション
+                    position: 'bottom-right',
+                    theme: 'light',
+                    primaryColor: '#667eea',
+                    welcomeMessage: 'こんにちは！何かお困りですか？お気軽にご質問ください。',
+                    placeholder: 'ご質問をどうぞ...',
+                    headerTitle: 'AIサポート',
+                    headerSubtitle: '24時間対応',
+                });
+                
+                console.log('✅ ChatKit initialized successfully');
+            } catch (error) {
+                console.error('❌ ChatKit initialization failed:', error);
+                alert('チャットの初期化に失敗しました: ' + error.message);
+            }
+        });
         
         // チャットを開く関数
         function openChat() {
-            if (window.ChatKit) {
-                ChatKit.open();
+            if (chatkitControl) {
+                chatkitControl.open();
             } else {
                 alert('チャット機能の準備中です。少しお待ちください。');
             }
-        }
-        
-        // デバッグ用ログ
-        if (window.ChatKit) {
-            ChatKit.on('ready', () => {
-                console.log('✅ ChatKit is ready');
-            });
-            
-            ChatKit.on('error', (error) => {
-                console.error('❌ ChatKit error:', error);
-            });
         }
     </script>
 </body>
