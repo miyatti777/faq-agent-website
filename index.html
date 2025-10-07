@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - カスタマーサポート | AI搭載</title>
+    <meta name="description" content="24時間対応のAI搭載FAQ検索サービス">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        main {
+            padding: 3rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🤖 AIカスタマーサポート</h1>
+    </header>
+    
+    <main>
+        <div class="hero">
+            <div class="badge">🤖 AI搭載</div>
+            <h2>よくある質問</h2>
+            <p>
+                24時間365日、いつでもご質問にお答えします。<br>
+                右下のチャットボタンから、お気軽にお問い合わせください。<br>
+                AI搭載のFAQ検索エージェントが、即座に最適な回答をご提供します。
+            </p>
+            <button class="cta-button" onclick="openChat()">
+                💬 チャットで質問する
+            </button>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">📦</div>
+                <h3>配送・返品</h3>
+                <p>配送日数、送料、返品条件など、配送に関するあらゆるご質問にお答えします。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">💳</div>
+                <h3>お支払い</h3>
+                <p>利用可能な支払い方法、領収書発行、セキュリティについて詳しくご案内します。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">👤</div>
+                <h3>アカウント</h3>
+                <p>会員登録、ログイン、パスワードリセットなど、アカウント関連のサポートをします。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">🎁</div>
+                <h3>ポイント・特典</h3>
+                <p>ポイントの貯め方、使い方、お得なキャンペーン情報をご説明します。</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>
+            &copy; 2025 Your Company Name. All rights reserved.<br>
+            Powered by <a href="https://openai.com/" target="_blank">OpenAI Agent Builder</a> | 
+            Hosted on <a href="https://vercel.com/" target="_blank">Vercel</a>
+        </p>
+    </footer>
+    
+    <!-- 
+    ═══════════════════════════════════════════════════════════
+    ⚠️ 重要：以下の設定を変更してください
+    ═══════════════════════════════════════════════════════════
+    -->
+    
+    <!-- ChatKit スクリプト読み込み -->
+    <script src="https://cdn.openai.com/chatkit/chatkit.js"></script>
+    
+    <script>
+        // ═════════════════════════════════════════════════════════
+        // ⚠️ ここを編集してください
+        // ═════════════════════════════════════════════════════════
+        
+        const CONFIG = {
+            // 🔴 必須：あなたのWorkflow IDに変更してください
+            workflowId: 'wf_68e4692701c88190b320ee7546ec44d70e84b9',
+            
+            // 🔴 必須：本番環境用バージョン（変更しないでOK）
+            version: '1',
+            
+            // ═════════════════════════════════════════════════════
+            // 以下はカスタマイズ可能（変更してもしなくてもOK）
+            // ═════════════════════════════════════════════════════
+            
+            position: 'bottom-right',  // 'bottom-left', 'top-right', 'top-left'
+            theme: 'light',            // 'light', 'dark', 'auto'
+            primaryColor: '#667eea',   // お好みの色に変更可能
+            
+            // メッセージ
+            welcomeMessage: 'こんにちは！何かお困りですか？お気軽にご質問ください。',
+            placeholder: 'ご質問をどうぞ...',
+            
+            // ヘッダー
+            headerTitle: 'AIサポート',
+            headerSubtitle: '24時間対応',
+        };
+        
+        // ═════════════════════════════════════════════════════════
+        // ⚠️ ここから下は変更不要
+        // ═════════════════════════════════════════════════════════
+        
+        // ChatKit初期化
+        try {
+            ChatKit.init(CONFIG);
+            console.log('✅ ChatKit initialized successfully');
+        } catch (error) {
+            console.error('❌ ChatKit initialization failed:', error);
+            alert('チャットの初期化に失敗しました。Workflow IDとドメイン登録を確認してください。');
+        }
+        
+        // チャットを開く関数
+        function openChat() {
+            if (window.ChatKit) {
+                ChatKit.open();
+            } else {
+                alert('チャット機能の準備中です。少しお待ちください。');
+            }
+        }
+        
+        // デバッグ用ログ
+        if (window.ChatKit) {
+            ChatKit.on('ready', () => {
+                console.log('✅ ChatKit is ready');
+            });
+            
+            ChatKit.on('error', (error) => {
+                console.error('❌ ChatKit error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
